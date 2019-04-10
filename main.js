@@ -1,2 +1,64 @@
 "use strict";
-console.log("Main"); //checkt ob richtig verlinkt ist
+
+function main (){
+  
+  const mainElement = document.querySelector("main");
+  function buildDom(html){
+    mainElement.innerHTML = html;
+    return mainElement;
+  }
+
+  function buildSplashScreen(){
+    const splashScreen = buildDom(`
+    <section>
+    <h1>Eternal Enemies</h1>
+    <button class="start-button">Start</button>
+    </section>
+    `);
+
+    const startButton = document.querySelector(".start-button");
+
+    startButton.addEventListener("click", buildGameScreen);
+    }
+  
+
+  function buildGameScreen(){
+    const splashScreen = buildDom(`
+    <section class="game-container">
+    <canvas></canvas>
+    </section>
+    `);
+
+    const gameContainerElement = document.querySelector(".game-container")
+
+    const width = gameContainerElement.offsetWidth;
+    const height = gameContainerElement.offsetHeight;
+
+    console.log(width, height);
+
+    const canvasElement= document.querySelector("canvas");
+
+    canvasElement.setAttribute("width", width);
+    canvasElement.setAttribute("height", height);
+
+    setTimeout(buildGameOverScreen, 3000);
+
+  }
+
+
+  function buildGameOverScreen(){
+    const gameOverScreen = buildDom(`
+    <section>
+    <h1>Game over</h1>
+    <button class="restart-button">Restart</button>
+    </section>
+    `)
+
+    const restartButton = document.querySelector(".restart-button");
+    restartButton.addEventListener("click", buildGameScreen);
+  }
+
+buildSplashScreen();
+};
+
+window.addEventListener("load", main); // main wird geladen bevor alles andere lädt -> aicherer zugriff
