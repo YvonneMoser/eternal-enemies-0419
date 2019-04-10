@@ -22,6 +22,9 @@ function main (){
     }
   
 
+
+
+
   function buildGameScreen(){
     const splashScreen = buildDom(`
     <section class="game-container">
@@ -42,13 +45,30 @@ function main (){
     canvasElement.setAttribute("height", height);
 
 
+
     const game = new Game(canvasElement);
     game.startLoop();
 
 
-    setTimeout(buildGameOverScreen, 3000);
+    document.addEventListener("keydown", function(){
+      if (event.keyCode === 38){
+        game.player.setDirection(-1);
+      }
+      else if (event.keyCode === 40){
+        game.player.setDirection(1);
+      }
+    })
 
+    document.addEventListener("keyup", function(event){
+      if (event.keyCode === 38 || event.keyCode === 40){
+        game.player.setDirection(0);
+      }
+    })
   }
+
+
+
+
 
 
   function buildGameOverScreen(){
